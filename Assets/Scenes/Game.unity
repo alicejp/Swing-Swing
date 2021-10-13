@@ -157,6 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  jumpOffSpeed: 4
+  minGroundNormalY: -3
 --- !u!50 &362109200
 Rigidbody2D:
   serializedVersion: 4
@@ -316,7 +318,7 @@ MonoBehaviour:
   cameraDepth: -10
   speed: 2
   minX: -3
-  minY: -3
+  minY: 0
   maxX: 10
   maxY: 10
 --- !u!20 &519420031
