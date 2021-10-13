@@ -12,11 +12,13 @@ public class RopeManager : MonoBehaviour
     float ropeMaxCastDistance = 20f;
     LineRenderer lr;
     PlayerOnRopeMovement playerOnRopeMovement;
+    Animator animator;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
         playerOnRopeMovement = GetComponent<PlayerOnRopeMovement>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()

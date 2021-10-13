@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
     public float jumpOffSpeed = 4f;
-    public float minGroundNormalY = -3f;
+    public float minGroundNormalY;
     Rigidbody2D rb2D;
     float horizontalInput;
     bool grounded;
+    SpriteRenderer playerSprite;
 
     void Awake() 
     {
         rb2D = GetComponent<Rigidbody2D>();
+        playerSprite = GetComponent<SpriteRenderer>();
+        minGroundNormalY = transform.position.y;
     }
 
     void FixedUpdate() 
@@ -21,11 +23,10 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         if (horizontalInput != 0f)
         {
-            var movement = new Vector2(horizontalInput, 0);
-            rb2D.AddForce(movement * speed);
+            playerSprite.flipX = horizontalInput < 0f;
         }
 
-        grounded = (this.transform.position.y > minGroundNormalY);
+        grounded = (this.transform.position.y <= minGroundNormalY);
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
