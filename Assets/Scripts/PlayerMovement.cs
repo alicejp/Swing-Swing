@@ -5,20 +5,30 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float jumpOffSpeed = 4f;
-    public float minGroundNormalY;
+    public AudioClip jumpClip;
+    public float minVelocityY = 0f;
+
+    [Range(0, 1)]
+    public  float jumpVolumeScale = 0.7f;
+
+    AudioSource audioSource;
     Rigidbody2D rb2D;
     float horizontalInput;
-    bool grounded;
+    bool isGrounded;
     SpriteRenderer playerSprite;
-
+    
     void Awake() 
     {
         rb2D = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
-        minGroundNormalY = transform.position.y;
+        
     }
 
-    void FixedUpdate() 
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
+    
+    void Update() 
     {
         horizontalInput = Input.GetAxis("Horizontal");
         if (horizontalInput != 0f)
@@ -26,11 +36,26 @@ public class PlayerMovement : MonoBehaviour
             playerSprite.flipX = horizontalInput < 0f;
         }
 
-        grounded = (this.transform.position.y <= minGroundNormalY);
-
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb2D.velocity =  new Vector2(rb2D.velocity.x, jumpOffSpeed);
+            audioSource.PlayOneShot(jumpClip, jumpVolumeScale);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other) 
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
         }
     }
 }

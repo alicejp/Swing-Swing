@@ -27,11 +27,15 @@ public class RopeManager : MonoBehaviour
             if (ishookedOn)
             {
                 ResetAll();
-                return;
             }
             
             RayCastToMousePosition();
         }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            ResetAll();
+        }
+
         SetRopeRenderer();
     }
 
@@ -83,7 +87,9 @@ public class RopeManager : MonoBehaviour
 
     void SetRopeRenderer()
     {
-        // refresh the lr position count
+        if (nodes.Count == 0)
+            return;
+        
         lr.positionCount = nodes.Count;
         lr.SetPositions(nodes.ConvertAll(d => d.position).ToArray());
     }
