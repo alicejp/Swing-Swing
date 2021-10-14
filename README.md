@@ -10,7 +10,7 @@ Use your **hooking rope** to **SWING** yourself home.
 - **Shoot the hook**:  
 *Mouse left click*  
 
-- **Unbook the rope**:  
+- **Unhook the rope**:  
 *Mouse right click*
 
 
