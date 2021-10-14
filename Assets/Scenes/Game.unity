@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowestY: -5
   clip: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
-  volumeScale: 0.41
+  volumeScale: 0.2
 --- !u!120 &362109205
 LineRenderer:
   m_ObjectHideFlags: 0
