@@ -8,8 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jumpClip;
     public float minVelocityY = 0f;
 
-    [Range(0, 1)]
-    public  float jumpVolumeScale = 0.7f;
+    [Range(0, 1)] public  float jumpVolumeScale = 0.7f;
 
     AudioSource audioSource;
     Rigidbody2D rb2D;
@@ -24,10 +23,11 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    void Start() {
+    void Start() 
+    {
         audioSource = GetComponent<AudioSource>();
     }
-    
+
     void Update() 
     {
         horizontalInput = Input.GetAxis("Horizontal");

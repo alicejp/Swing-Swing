@@ -5,6 +5,8 @@ using UnityEngine;
 public class HingeManager : MonoBehaviour
 {
     public GameObject hinge;
+    
+    SpriteRenderer hingeSprite;
     DistanceJoint2D dj2D;
     Vector2 hingePosition;
     float climbSpeed = 3f;
@@ -13,7 +15,7 @@ public class HingeManager : MonoBehaviour
     {
         dj2D = GetComponent<DistanceJoint2D>();
         dj2D.enabled = false;
-        //todo: set hinge sprite off, and set it back when it is hooked.
+        hingeSprite = hinge.GetComponent<SpriteRenderer>();
     }
 
     public void SetHingePosition(Vector2 position)
@@ -22,11 +24,13 @@ public class HingeManager : MonoBehaviour
         hinge.transform.position = position;
         dj2D.distance = Vector2.Distance(transform.position, position);
         dj2D.enabled = true;
+        hingeSprite.enabled = true;
     }
 
     public void SetHingeDisable()
     {
         dj2D.enabled = false;
+        hingeSprite.enabled = false;
     }
 
     public void ShortenDistance(float verticalInput)
