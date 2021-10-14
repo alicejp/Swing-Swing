@@ -10,6 +10,11 @@ public class GameOver : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        
         if (this.transform.position.y <= lowestY)
         {
             LoadScene ls = GetComponent<LoadScene>();
