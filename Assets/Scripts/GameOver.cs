@@ -12,9 +12,13 @@ public class GameOver : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            Application.Quit();
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
         }
-        
+
         if (this.transform.position.y <= lowestY)
         {
             LoadScene ls = GetComponent<LoadScene>();
