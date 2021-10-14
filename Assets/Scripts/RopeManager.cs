@@ -12,26 +12,26 @@ public class RopeManager : MonoBehaviour
     float ropeMaxCastDistance = 20f;
     LineRenderer lr;
     PlayerOnRopeMovement playerOnRopeMovement;
-    Animator animator;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
         playerOnRopeMovement = GetComponent<PlayerOnRopeMovement>();
-        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
+            bool ishookedOn = (nodes.Count != 0);
+            if (ishookedOn)
+            {
+                ResetAll();
+                return;
+            }
+            
             RayCastToMousePosition();
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            ResetAll();
-        }
-        
         SetRopeRenderer();
     }
 
