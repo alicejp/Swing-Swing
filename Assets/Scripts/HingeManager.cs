@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// A hinge is to connect two parts together.
 public class HingeManager : MonoBehaviour
 {
     public GameObject hinge;

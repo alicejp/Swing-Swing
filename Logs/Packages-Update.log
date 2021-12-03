@@ -62,3 +62,27 @@ The following packages were added:
   com.unity.connect.share@4.1.1
   com.unity.learn.iet-framework@1.2.3
   com.unity.postprocessing@3.1.1
+
+=== Thu Dec  2 10:39:14 2021
+
+Packages were changed.
+Update Mode: resetToDefaultDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 1.9.0 to 1.15.1
+  com.unity.ide.rider from version 3.0.7 to 2.0.7
+  com.unity.ide.vscode from version 1.2.3 to 1.2.4
+  com.unity.timeline from version 1.5.6 to 1.4.8
+The following packages were removed:
+  com.unity.2d.animation@6.0.5
+  com.unity.2d.pixel-perfect@5.0.1
+  com.unity.2d.psdimporter@5.0.4
+  com.unity.2d.sprite@1.0.0
+  com.unity.2d.spriteshape@6.0.1
+  com.unity.2d.tilemap@1.0.0
+  com.unity.2d.tilemap.extras@2.2.0
+  com.unity.cinemachine@2.6.5
+  com.unity.connect.share@4.1.1
+  com.unity.learn.iet-framework@1.2.3
+  com.unity.postprocessing@3.1.1
+  com.unity.visualscripting@1.6.1
