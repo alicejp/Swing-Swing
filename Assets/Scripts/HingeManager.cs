@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// A hinge is to connect two parts together.
+/// <summary>
+/// Use DistanceJoint to represent the hinge's magic.
+/// </summary>
 public class HingeManager : MonoBehaviour
 {
+    // A hinge is to connect two parts together.
     public GameObject hinge;
-    
+
     SpriteRenderer hingeSprite;
     DistanceJoint2D dj2D;
     Vector2 hingePosition;

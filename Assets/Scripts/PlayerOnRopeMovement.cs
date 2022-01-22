@@ -5,23 +5,40 @@ using UnityEngine;
 public class PlayerOnRopeMovement : MonoBehaviour
 {
     Rigidbody2D rb2D;
+    PlayerController playerController;
+    HingeManager hingeManager;
+    AnimatorManager animatorManager;
     bool isHooked;
     float thrust = 1f;
-    float swingForce = 2f;
-    float horizontalInput;
-    float verticalInput;
+    float swingForce = 40f;
 
     void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        playerController = GetComponent<PlayerController>();
+        hingeManager = GetComponent<HingeManager>();
+        animatorManager = GetComponent<AnimatorManager>();
     }
 
-    public void SetIsHooked(bool isHooked)
+    public bool IsHooked
     {
-        this.isHooked = isHooked;
-        if (isHooked)
+        set
         {
-            AddUpThrust();
+            isHooked = value;
+            if (isHooked)
+            {
+                AddUpThrust();
+            }
+
+            if (animatorManager.IsRunning)
+            {
+                animatorManager.IsRunning = false;
+            }
+        }
+
+        get
+        {
+            return isHooked;
         }
     }
 
@@ -31,41 +48,58 @@ public class PlayerOnRopeMovement : MonoBehaviour
     }
 
     void Update() {
-        // Ground check, if it is not on the ground,then if there is a vertical force, the shorten the distance joint
-        // Looks like the string has special thing to shorten it.
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        
+        ShortenHingeHandler();
     }
 
     void FixedUpdate() 
     {
         SwingHandler();
-        ShortenHingeHandler();
     }
 
     void SwingHandler()
     {
-        if (horizontalInput != 0 && isHooked)
+        if (playerController.HorizontalInput != 0 && isHooked)
         {
-            if (horizontalInput > 0)
+            animatorManager.IsRunning = true;
+
+            if (playerController.HorizontalInput > 0)
             {
-                rb2D.AddForce(transform.right * swingForce);
+                rb2D.AddForce(transform.right * swingForce * Time.deltaTime);
             }
             else
             {
-                rb2D.AddForce(-transform.right * swingForce);
+                rb2D.AddForce(-transform.right * swingForce * Time.deltaTime);
+                
             }
-
-            // Useful way to sort out the direction
+            //Useful way to sort out the direction
             //Debug.DrawLine(this.transform.position, this.transform.position + this.transform.right);
+        }
+        else
+        {
+            animatorManager.IsRunning = false;
         }
     }
 
     void ShortenHingeHandler()
     {
+        // Ground check, if it is not on the ground,then if there is a vertical force, the shorten the distance joint
+        // Looks like the string has special thing to shorten it.
+        bool isIntentToClimbDown = playerController.VerticalInput <= 0f;
+        if (playerController.isGrounded && isIntentToClimbDown)
+        {
+            print("playerController.VerticalInput : " + playerController.VerticalInput);
+            return;
+        }else
+        {
+            print("playerController.isGrounded: "+ playerController.isGrounded);
+            print("false , playerController.VerticalInput : " + playerController.VerticalInput);
+        }
+            
+
         if (isHooked)
         {
-            GetComponent<HingeManager>().ShortenDistance(verticalInput);
+            hingeManager.ShortenDistance(playerController.VerticalInput);
         }
     }
 }

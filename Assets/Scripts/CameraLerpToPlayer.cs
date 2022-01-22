@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Assign the camera to follow the player.
+/// </summary>
 public class CameraLerpToPlayer : MonoBehaviour
 {
     public GameObject player;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,21 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jumpClip;
     public float minVelocityY = 0f;
 
-    [Range(0, 1)] public  float jumpVolumeScale = 0.7f;
+    [Range(0, 1)] public float jumpVolumeScale = 0.7f;
 
     AudioSource audioSource;
     Rigidbody2D rb2D;
-    float horizontalInput;
-    bool isGrounded;
-    SpriteRenderer playerSprite;
     
+    SpriteRenderer playerSprite;
+    PlayerController playerController;
+
+    bool isGrounded;
+
     void Awake() 
     {
         rb2D = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
-        
+        playerController = GetComponent<PlayerController>();
     }
 
     void Start() 
@@ -30,13 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update() 
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        if (horizontalInput != 0f)
+        // Turn right and left
+        if (playerController.HorizontalInput != 0f)
         {
-            playerSprite.flipX = horizontalInput < 0f;
+            playerSprite.flipX = playerController.HorizontalInput < 0f;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        // Jump only if you are on the ground.
+        if (playerController.JumpBottonPressed && isGrounded)
         {
             rb2D.velocity =  new Vector2(rb2D.velocity.x, jumpOffSpeed);
             audioSource.PlayOneShot(jumpClip, jumpVolumeScale);
@@ -47,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground")
         {
-            isGrounded = true;
+            SetIsGrounded(true);
         }
     }
 
@@ -55,7 +59,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground")
         {
-            isGrounded = false;
+            SetIsGrounded(false);
         }
+    }
+
+    void SetIsGrounded(bool isGrounded)
+    {
+        this.isGrounded = isGrounded;
+        playerController.isGrounded = isGrounded;
     }
 }
